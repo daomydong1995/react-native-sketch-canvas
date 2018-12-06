@@ -156,7 +156,7 @@ export default class RNSketchCanvas extends React.Component {
       this._sketchCanvas.save(p.imageType, p.transparent, p.folder ? p.folder : '', p.filename, p.includeImage !== false, p.includeText !== false, p.cropToImageSize || false)
     } else {
       const date = new Date()
-      this._sketchCanvas.save('png', false, '', 
+      this._sketchCanvas.save('png', false, '',
         date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + ('0' + date.getDate()).slice(-2) + ' ' + ('0' + date.getHours()).slice(-2) + '-' + ('0' + date.getMinutes()).slice(-2) + '-' + ('0' + date.getSeconds()).slice(-2),
         true, true, false)
     }
@@ -204,6 +204,24 @@ export default class RNSketchCanvas extends React.Component {
   render() {
     return (
       <View style={this.props.containerStyle}>
+        <View style={this.props.canvasStyle}>
+          <SketchCanvas
+            ref={ref => this._sketchCanvas = ref}
+            style={{width: '100%', height: '100%'}}
+            strokeColor={this.state.color + (this.state.color.length === 9 ? '' : this.state.alpha)}
+            onStrokeStart={this.props.onStrokeStart}
+            onStrokeChanged={this.props.onStrokeChanged}
+            onStrokeEnd={this.props.onStrokeEnd}
+            user={this.props.user}
+            strokeWidth={this.state.strokeWidth}
+            onSketchSaved={(success, path) => this.props.onSketchSaved(success, path)}
+            onPathsChange={this.props.onPathsChange}
+            text={this.props.text}
+            localSourceImage={this.props.localSourceImage}
+            permissionDialogTitle={this.props.permissionDialogTitle}
+            permissionDialogMessage={this.props.permissionDialogMessage}
+          />
+        </View>
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-start' }}>
             {this.props.closeComponent && (
@@ -218,7 +236,7 @@ export default class RNSketchCanvas extends React.Component {
               </TouchableOpacity>)
             }
           </View>
-          <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-end' }}>
+          <View style={{marginTop: 20, flexDirection: 'row', flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
             {this.props.strokeWidthComponent && (
               <TouchableOpacity onPress={() => { this.nextStrokeWidth() }}>
                 {this.props.strokeWidthComponent(this.state.strokeWidth)}
@@ -244,22 +262,6 @@ export default class RNSketchCanvas extends React.Component {
             }
           </View>
         </View>
-        <SketchCanvas
-          ref={ref => this._sketchCanvas = ref}
-          style={this.props.canvasStyle}
-          strokeColor={this.state.color + (this.state.color.length === 9 ? '' : this.state.alpha)}
-          onStrokeStart={this.props.onStrokeStart}
-          onStrokeChanged={this.props.onStrokeChanged}
-          onStrokeEnd={this.props.onStrokeEnd}
-          user={this.props.user}
-          strokeWidth={this.state.strokeWidth}
-          onSketchSaved={(success, path) => this.props.onSketchSaved(success, path)}
-          onPathsChange={this.props.onPathsChange}
-          text={this.props.text}
-          localSourceImage={this.props.localSourceImage}
-          permissionDialogTitle={this.props.permissionDialogTitle}
-          permissionDialogMessage={this.props.permissionDialogMessage}
-        />
         <View style={{ flexDirection: 'row' }}>
           <FlatList
             data={this.props.strokeColors}
