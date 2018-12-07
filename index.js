@@ -43,6 +43,8 @@ export default class RNSketchCanvas extends React.Component {
     savePreference: PropTypes.func,
     onSketchSaved: PropTypes.func,
 
+    disableSave: PropTypes.boolean,
+
     text: PropTypes.arrayOf(PropTypes.shape({
       text: PropTypes.string,
       font: PropTypes.string,
@@ -81,7 +83,7 @@ export default class RNSketchCanvas extends React.Component {
     strokeComponent: null,
     strokeSelectedComponent: null,
     strokeWidthComponent: null,
-
+    disableSave: false,
     strokeColors: [
       { color: '#000000' },
       { color: '#FF0000' },
@@ -256,7 +258,7 @@ export default class RNSketchCanvas extends React.Component {
             }
 
             {this.props.saveComponent && (
-              <TouchableOpacity onPress={() => { this.save() }}>
+              <TouchableOpacity disabled={!this.props.disableSave} onPress={() => { this.save() }}>
                 {this.props.saveComponent}
               </TouchableOpacity>)
             }
