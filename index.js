@@ -223,6 +223,8 @@ export default class RNSketchCanvas extends React.Component {
             permissionDialogTitle={this.props.permissionDialogTitle}
             permissionDialogMessage={this.props.permissionDialogMessage}
           />
+          <Text style={{width: '100%',textAlign: 'center',
+            fontSize: 16}}>(Khách hàng kí)</Text>
         </View>
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-start' }}>
@@ -238,7 +240,7 @@ export default class RNSketchCanvas extends React.Component {
               </TouchableOpacity>)
             }
           </View>
-          <View style={{marginTop: 20, flexDirection: 'row', flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
+          <View style={{flexDirection: 'row',width: '100%', justifyContent: 'flex-end', alignItems: 'center'}}>
             {this.props.strokeWidthComponent && (
               <TouchableOpacity onPress={() => { this.nextStrokeWidth() }}>
                 {this.props.strokeWidthComponent(this.state.strokeWidth)}
@@ -252,13 +254,13 @@ export default class RNSketchCanvas extends React.Component {
             }
 
             {this.props.clearComponent && (
-              <TouchableOpacity style={{marginRight: 30}} onPress={() => { this.clear(); this.props.onClearPressed() }}>
+              <TouchableOpacity onPress={() => { this.clear(); this.props.onClearPressed() }}>
                 {this.props.clearComponent}
               </TouchableOpacity>)
             }
 
             {this.props.saveComponent && (
-              <TouchableOpacity disabled={!this.props.disableSave} onPress={() => { this.save() }}>
+              <TouchableOpacity disabled={!this.props.disableSave} style={{marginLeft: 20}} onPress={() => { this.save() }}>
                 {this.props.saveComponent}
               </TouchableOpacity>)
             }
