@@ -22,7 +22,8 @@ export default class RNSketchCanvas extends React.Component {
     onClearPressed: PropTypes.func,
     onPathsChange: PropTypes.func,
     user: PropTypes.string,
-
+    touchEnabled: PropTypes.boolean,
+    enableSaveBtn: PropTypes.boolean,
     closeComponent: PropTypes.node,
     eraseComponent: PropTypes.node,
     undoComponent: PropTypes.node,
@@ -43,7 +44,6 @@ export default class RNSketchCanvas extends React.Component {
     savePreference: PropTypes.func,
     onSketchSaved: PropTypes.func,
 
-    disableSave: PropTypes.boolean,
 
     text: PropTypes.arrayOf(PropTypes.shape({
       text: PropTypes.string,
@@ -74,7 +74,8 @@ export default class RNSketchCanvas extends React.Component {
     onClearPressed: () => { },
     onPathsChange: () => { },
     user: null,
-
+    touchEnabled: true,
+    enableSaveBtn: false,
     closeComponent: null,
     eraseComponent: null,
     undoComponent: null,
@@ -83,7 +84,6 @@ export default class RNSketchCanvas extends React.Component {
     strokeComponent: null,
     strokeSelectedComponent: null,
     strokeWidthComponent: null,
-    disableSave: false,
     strokeColors: [
       { color: '#000000' },
       { color: '#FF0000' },
@@ -215,6 +215,7 @@ export default class RNSketchCanvas extends React.Component {
             onStrokeChanged={this.props.onStrokeChanged}
             onStrokeEnd={this.props.onStrokeEnd}
             user={this.props.user}
+            touchEnabled={this.props.touchEnabled}
             strokeWidth={this.state.strokeWidth}
             onSketchSaved={(success, path) => this.props.onSketchSaved(success, path)}
             onPathsChange={this.props.onPathsChange}
@@ -260,7 +261,7 @@ export default class RNSketchCanvas extends React.Component {
             }
 
             {this.props.saveComponent && (
-              <TouchableOpacity disabled={!this.props.disableSave} style={{marginLeft: 20}} onPress={() => { this.save() }}>
+              <TouchableOpacity disabled={!this.props.enableSaveBtn} style={{marginLeft: 20}} onPress={() => { this.save() }}>
                 {this.props.saveComponent}
               </TouchableOpacity>)
             }
