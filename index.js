@@ -22,8 +22,6 @@ export default class RNSketchCanvas extends React.Component {
     onClearPressed: PropTypes.func,
     onPathsChange: PropTypes.func,
     user: PropTypes.string,
-    touchEnabled: PropTypes.boolean,
-    enableSaveBtn: PropTypes.boolean,
     closeComponent: PropTypes.node,
     eraseComponent: PropTypes.node,
     undoComponent: PropTypes.node,
@@ -74,8 +72,6 @@ export default class RNSketchCanvas extends React.Component {
     onClearPressed: () => { },
     onPathsChange: () => { },
     user: null,
-    touchEnabled: true,
-    enableSaveBtn: false,
     closeComponent: null,
     eraseComponent: null,
     undoComponent: null,
@@ -215,7 +211,6 @@ export default class RNSketchCanvas extends React.Component {
             onStrokeChanged={this.props.onStrokeChanged}
             onStrokeEnd={this.props.onStrokeEnd}
             user={this.props.user}
-            touchEnabled={this.props.touchEnabled}
             strokeWidth={this.state.strokeWidth}
             onSketchSaved={(success, path) => this.props.onSketchSaved(success, path)}
             onPathsChange={this.props.onPathsChange}
@@ -261,7 +256,7 @@ export default class RNSketchCanvas extends React.Component {
             }
 
             {this.props.saveComponent && (
-              <TouchableOpacity disabled={!this.props.enableSaveBtn} style={{marginLeft: 20}} onPress={() => { this.save() }}>
+              <TouchableOpacity onPress={() => { this.save() }}>
                 {this.props.saveComponent}
               </TouchableOpacity>)
             }
